@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Website}}</title>
+</head>
+<body>
+  {{template "/public/header.html"}}
+ <h2>1.模板中綁定基本數據 字符串 數值 布爾值</h2>
+ <p>{{.title}}</p>
+ <p>{{.num}}</p>
+ <p>{{.flag}}</p>
+<br>
+<h2>2.模板中綁定結構體數據</h2>
+<p>{{.article.Title}}</p>
+<p>{{.article.Content}}</p>
+<br>
+
+<h2>3.模板中自定義變量</h2>
+{{$title := .title}}
+
+{{$title}}
+
+<h2>4.循環遍歷range (切片)</h2>
+<ul>
+{{range $key,$val := .sliceList}}
+<li>{{$key}}--{{$val}}</li>
+{{end}}
+</ul>
+
+<h2>5.循環遍歷range (Map)</h2>
+<ul>
+  {{range $key,$val := .userinfo}}
+  <li>{{$key}}--{{$val}}</li>
+  {{end}}
+</ul>
+
+
+<h2>6.循環遍歷range ([]struct)</h2>
+<ul>
+  {{range $key,$val := .articleList}}
+  <li>{{$key}}--{{$val.Title}}--{{$val.Contnet}}</li>
+  {{end}}
+</ul>
+
+
+<h2>7.循環遍歷range ([]struct) 2</h2>
+<ul>
+  {{range $key,$val := .cmsList}}
+  <li>{{$key}}--{{$val.Title}}</li>
+  {{end}}
+</ul>
+
+<h2>
+  8.模板中的條件判斷
+</h2>
+
+{{if .isLogin}}
+<p>isLogin等於true</p>
+{{end}}
+
+{{if .isHome}}
+<p>isHome等於true</p>
+{{else}}
+<p>isHome等於false</p>
+{{end}}
+
+{{if .isHome}}
+<p>isHome等於true</p>
+{{else}}
+{{if .isAbout}}
+<p>isAbout等於true 111</p>
+{{end}}
+{{end}}
+
+<h2>
+  9.if條件判斷 eq/ne/lt/le/gt/ge
+</h2>
+{{if gt .n1 .n2}}
+<p>n1大於n2</p>
+{{end}}
+
+<h2>
+  10.define自定義模板
+</h2>
+{{define "aaa"}}
+<h4>這是一個自定義的代碼塊</h4>
+<p>123</p>
+<p>123523</p>
+{{end}}
+
+<div>
+  {{template "aaa" .}}
+</div>
+<h2>
+  11.模板裡面使用使定義模板函式
+</h2>
+<p>{{.unix | unixToDate}}</p>
+
+
+<h2>
+  12.外部自定義模板
+</h2>
+{{template "/public/footer.html"}}
+
+</body>
+</html>

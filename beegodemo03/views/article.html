@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- <link rel="stylesheet" href="/static/css/index.css"> -->
+
+  {{assets_css "/static/css/index.css"}}
+
+  <!--<script src="/static/js/base.js"></script>-->
+  <!--{{assets_js "/static/js/base.js"}}-->
+</head>
+<body>
+
+{{template "public/header.html" .}}
+<p>
+  {{.now}}
+</p>
+<p>
+  {{date .now "Y-m-d H:i:s"}}
+</p>
+
+
+<p>{{.title}}</p>
+<p>{{substr .title 0 4}}</p>
+
+<p>{{.html}}</p>
+<p>{{.html | html2str}}</p>
+<p>{{html2str  .html}}</p>
+
+<p>{{.html | str2html}}</p>
+<p>{{str2html  .html}}</p>
+
+
+{{htmlquote .html}}
+<h2>獲取conf裡面的內容</h2>
+<p>{{config "String" "httpport" ""}}</p>
+<p>{{config "String" "appname" ""}}</p>
+
+<h2>獲取map對象數據</h2>
+{{map_get .userinfo "username"}}
+{{map_get .userinfo "age"}}
+{{map_get .userinfo "a" "c"}}
+
+<h2>自定義模板函式</h2>
+<p>{{.title | hi}}</p>
+
+<p>{{.unix | unixToDate}}</p>
+
+<h2>業務邏輯截取字符串</h2>
+{{.str}}
+
+{{template "public/footer.html" .}}
+</body>
+</html>
